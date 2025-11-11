@@ -1,0 +1,17 @@
+{
+  "entrypoints/application.js": {
+    "file": "assets/application-BGWsx9dE.js",
+    "name": "entrypoints/application.js",
+    "src": "entrypoints/application.js",
+    "isEntry": true,
+    "imports": [
+      "entrypoints/vite-demo.js"
+    ]
+  },
+  "entrypoints/vite-demo.js": {
+    "file": "assets/vite-demo-DQZlOFIv.js",
+    "name": "entrypoints/vite-demo.js",
+    "src": "entrypoints/vite-demo.js",
+    "isEntry": true
+  }
+}

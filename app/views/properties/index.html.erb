@@ -1,5 +1,8 @@
 <div class="max-w-6xl mx-auto p-6">
-  <h1 class="font-bold text-4xl mb-8 text-gray-800">Property Management System</h1>
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="font-bold text-4xl text-gray-800">Property Management System</h1>
+    <%= link_to "⚡️ Vite Demo", vite_demo_path, class: "px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-semibold" %>
+  </div>
 
   <% if @property %>
     <!-- Property Details -->

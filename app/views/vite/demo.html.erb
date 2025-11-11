@@ -1,0 +1,113 @@
+<div class="max-w-6xl mx-auto p-6">
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h1 class="font-bold text-5xl mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+      Vite ⚡️ + Rails 7.2.2.1
+    </h1>
+    <p class="text-xl text-gray-600">Modern Frontend Tooling for Rails</p>
+    <div class="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-green-100 rounded-full">
+      <span class="text-sm font-medium text-green-800">Vite Status:</span>
+      <span class="vite-status text-sm text-gray-600">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <!-- Counter Demo -->
+    <div class="bg-white shadow-lg rounded-lg p-6 border-t-4 border-purple-500">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Interactive Counter</h2>
+      <p class="text-gray-600 mb-4">Click the button to see Vite's JavaScript in action!</p>
+      <div class="flex items-center gap-4">
+        <button id="vite-counter-btn" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-semibold">
+          Click Me!
+        </button>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-purple-600" id="vite-counter">0</div>
+          <div class="text-sm text-gray-500">clicks</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Time Demo -->
+    <div class="bg-white shadow-lg rounded-lg p-6 border-t-4 border-blue-500">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Live Clock</h2>
+      <p class="text-gray-600 mb-4">Real-time updates powered by modern JavaScript</p>
+      <div class="text-center">
+        <div class="text-4xl font-mono font-bold text-blue-600" id="vite-time">--:--:--</div>
+        <div class="text-sm text-gray-500 mt-2">Updates every second</div>
+      </div>
+    </div>
+
+    <!-- Dynamic Content Demo -->
+    <div class="bg-white shadow-lg rounded-lg p-6 border-t-4 border-green-500">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Dynamic Content Loading</h2>
+      <p class="text-gray-600 mb-4">Async/await with modern ES6+ syntax</p>
+      <button id="vite-load-btn" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold mb-4">
+        Load Content
+      </button>
+      <div id="vite-dynamic-content" class="min-h-[80px]">
+        <p class="text-gray-400 italic">Click the button to load content dynamically</p>
+      </div>
+    </div>
+
+    <!-- Features List -->
+    <div class="bg-white shadow-lg rounded-lg p-6 border-t-4 border-orange-500">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Vite Features</h2>
+      <ul class="space-y-2">
+        <li class="flex items-start gap-2">
+          <span class="text-green-600 font-bold mt-1">✓</span>
+          <span class="text-gray-700">Hot Module Replacement (HMR)</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-600 font-bold mt-1">✓</span>
+          <span class="text-gray-700">Lightning fast build times</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-600 font-bold mt-1">✓</span>
+          <span class="text-gray-700">ES6+ module support</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-600 font-bold mt-1">✓</span>
+          <span class="text-gray-700">Native ESM in development</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-600 font-bold mt-1">✓</span>
+          <span class="text-gray-700">Optimized production builds</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Info Card -->
+  <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg rounded-lg p-6">
+    <h3 class="text-2xl font-bold mb-4">About This Demo</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <h4 class="font-semibold mb-2">What is Vite?</h4>
+        <p class="text-purple-100">
+          Vite is a modern build tool that provides a lightning-fast development experience.
+          It uses native ES modules in the browser during development and Rollup for production builds.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Why Vite + Rails?</h4>
+        <p class="text-purple-100">
+          Combining Vite with Rails gives you the best of both worlds: Rails' powerful backend
+          framework with Vite's blazing-fast frontend tooling and modern JavaScript support.
+        </p>
+      </div>
+    </div>
+    <div class="mt-6 pt-6 border-t border-purple-400">
+      <p class="text-sm">
+        <strong>Open your browser console</strong> to see Vite's console messages and feature logs.
+        Try editing <code class="bg-purple-700 px-2 py-1 rounded">app/javascript/entrypoints/vite-demo.js</code>
+        and watch it update instantly with Hot Module Replacement!
+      </p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="mt-8 text-center">
+    <%= link_to "← Back to Property Management", root_path, class: "inline-block px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-semibold" %>
+  </div>
+</div>
