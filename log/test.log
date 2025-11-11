@@ -1,0 +1,590 @@
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "contractors"[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE TABLE "contractors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "specialty" varchar, "property_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_contractors_on_property_id" ON "contractors" ("property_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "documents"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "documents" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "content" text, "document_type" varchar, "documentable_type" varchar NOT NULL, "documentable_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_documents_on_documentable" ON "documents" ("documentable_type", "documentable_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "lawyers"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "lawyers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "firm" varchar, "property_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_lawyers_on_property_id" ON "lawyers" ("property_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "properties"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "properties" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "address" varchar, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acontractors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "specialty" varchar, "property_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_acontractors_on_property_id" ON "acontractors" ("property_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acontractors" ("id","name","specialty","property_id","created_at","updated_at")
+                     SELECT "id","name","specialty","property_id","created_at","updated_at" FROM "contractors"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "contractors"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "contractors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "specialty" varchar, "property_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ec11b5edfa"
+FOREIGN KEY ("property_id")
+  REFERENCES "properties" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_contractors_on_property_id" ON "contractors" ("property_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "contractors" ("id","name","specialty","property_id","created_at","updated_at")
+                     SELECT "id","name","specialty","property_id","created_at","updated_at" FROM "acontractors"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acontractors"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "alawyers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "firm" varchar, "property_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_alawyers_on_property_id" ON "alawyers" ("property_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "alawyers" ("id","name","firm","property_id","created_at","updated_at")
+                     SELECT "id","name","firm","property_id","created_at","updated_at" FROM "lawyers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "lawyers"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "lawyers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "firm" varchar, "property_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_e15102033f"
+FOREIGN KEY ("property_id")
+  REFERENCES "properties" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_lawyers_on_property_id" ON "lawyers" ("property_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "lawyers" ("id","name","firm","property_id","created_at","updated_at")
+                     SELECT "id","name","firm","property_id","created_at","updated_at" FROM "alawyers"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "alawyers"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20251111050617)[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20251111050603),
+(20251111050548),
+(20251111050533);[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2025-11-11 05:08:51.675756', '2025-11-11 05:08:51.675758') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '299e10d1956326b1787ffe57bd0b51ccf09bfbe2', '2025-11-11 05:08:51.679987', '2025-11-11 05:08:51.679990') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM "contractors";
+DELETE FROM "documents";
+DELETE FROM "lawyers";
+DELETE FROM "properties";
+INSERT INTO "contractors" ("id", "name", "specialty", "property_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 980190962, '2025-11-11 05:08:52.008165', '2025-11-11 05:08:52.008165');
+INSERT INTO "contractors" ("id", "name", "specialty", "property_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 298486374, '2025-11-11 05:08:52.008165', '2025-11-11 05:08:52.008165');
+INSERT INTO "documents" ("id", "title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyText', 'MyString', 'Documentable', 980190962, '2025-11-11 05:08:52.013231', '2025-11-11 05:08:52.013231');
+INSERT INTO "documents" ("id", "title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyText', 'MyString', 'Documentable', 298486374, '2025-11-11 05:08:52.013231', '2025-11-11 05:08:52.013231');
+INSERT INTO "lawyers" ("id", "name", "firm", "property_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 980190962, '2025-11-11 05:08:52.014863', '2025-11-11 05:08:52.014863');
+INSERT INTO "lawyers" ("id", "name", "firm", "property_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 298486374, '2025-11-11 05:08:52.014863', '2025-11-11 05:08:52.014863');
+INSERT INTO "properties" ("id", "name", "address", "description", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyText', '2025-11-11 05:08:52.016088', '2025-11-11 05:08:52.016088');
+INSERT INTO "properties" ("id", "name", "address", "description", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 'MyText', '2025-11-11 05:08:52.016088', '2025-11-11 05:08:52.016088')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------
+PropertyTest: test_should_have_many_contractors
+-----------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:08:52.055187"], ["updated_at", "2025-11-11 05:08:52.055187"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.5ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 1"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.099234"], ["updated_at", "2025-11-11 05:08:52.099234"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 2"], ["specialty", "Electrical"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.101097"], ["updated_at", "2025-11-11 05:08:52.101097"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mContractor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contractors" WHERE "contractors"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mContractor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "contractors" WHERE "contractors"."property_id" = ? AND "contractors"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mContractor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "contractors" WHERE "contractors"."property_id" = ? AND "contractors"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------------
+PropertyTest: test_should_have_many_documents_through_polymorphic_association
+-----------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:08:52.124428"], ["updated_at", "2025-11-11 05:08:52.124428"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 1"], ["content", "Content 1"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.132438"], ["updated_at", "2025-11-11 05:08:52.132438"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.2ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 2"], ["content", "Content 2"], ["document_type", "legal"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.133705"], ["updated_at", "2025-11-11 05:08:52.133705"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"]]
+  [1m[36mDocument Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ? AND "documents"."id" = ? LIMIT ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mDocument Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ? AND "documents"."id" = ? LIMIT ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------
+PropertyTest: test_destroying_property_should_destroy_associated_records
+------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.4ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:08:52.137719"], ["updated_at", "2025-11-11 05:08:52.137719"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 1"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.139107"], ["updated_at", "2025-11-11 05:08:52.139107"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 1"], ["firm", "Firm A"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.142976"], ["updated_at", "2025-11-11 05:08:52.142976"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 1"], ["content", "Content 1"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.144312"], ["updated_at", "2025-11-11 05:08:52.144312"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Load (0.2ms)[0m  [1m[34mSELECT "contractors".* FROM "contractors" WHERE "contractors"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Contractor"]]
+  [1m[36mContractor Destroy (0.1ms)[0m  [1m[31mDELETE FROM "contractors" WHERE "contractors"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mLawyer Load (0.1ms)[0m  [1m[34mSELECT "lawyers".* FROM "lawyers" WHERE "lawyers"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Lawyer"]]
+  [1m[36mLawyer Destroy (0.1ms)[0m  [1m[31mDELETE FROM "lawyers" WHERE "lawyers"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"]]
+  [1m[36mDocument Destroy (0.1ms)[0m  [1m[31mDELETE FROM "documents" WHERE "documents"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mProperty Destroy (0.1ms)[0m  [1m[31mDELETE FROM "properties" WHERE "properties"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mContractor Load (0.1ms)[0m  [1m[34mSELECT "contractors".* FROM "contractors" WHERE "contractors"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mLawyer Load (0.1ms)[0m  [1m[34mSELECT "lawyers".* FROM "lawyers" WHERE "lawyers"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+PropertyTest: test_should_have_many_lawyers
+-------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:08:52.154516"], ["updated_at", "2025-11-11 05:08:52.154516"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 1"], ["firm", "Firm A"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.156340"], ["updated_at", "2025-11-11 05:08:52.156340"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.2ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 2"], ["firm", "Firm B"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.157534"], ["updated_at", "2025-11-11 05:08:52.157534"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mLawyer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "lawyers" WHERE "lawyers"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mLawyer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lawyers" WHERE "lawyers"."property_id" = ? AND "lawyers"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mLawyer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lawyers" WHERE "lawyers"."property_id" = ? AND "lawyers"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_lawyer_through_polymorphic_association
+----------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:08:52.161105"], ["updated_at", "2025-11-11 05:08:52.161105"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.4ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Lawyer"], ["firm", "Test Firm"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.163079"], ["updated_at", "2025-11-11 05:08:52.163079"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Lawyer Document"], ["content", "Test content"], ["document_type", "legal"], ["documentable_type", "Lawyer"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.164658"], ["updated_at", "2025-11-11 05:08:52.164658"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_property_through_polymorphic_association
+------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:08:52.166410"], ["updated_at", "2025-11-11 05:08:52.166410"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Property Document"], ["content", "Test content"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.167862"], ["updated_at", "2025-11-11 05:08:52.167862"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_contractor_through_polymorphic_association
+--------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (3.0ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:08:52.170829"], ["updated_at", "2025-11-11 05:08:52.170829"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Contractor"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.176527"], ["updated_at", "2025-11-11 05:08:52.176527"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.9ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Contractor Document"], ["content", "Test content"], ["document_type", "contract"], ["documentable_type", "Contractor"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.179981"], ["updated_at", "2025-11-11 05:08:52.179981"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------
+DocumentTest: test_polymorphic_association_allows_different_documentable_types
+------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:08:52.183256"], ["updated_at", "2025-11-11 05:08:52.183256"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Contractor"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.186358"], ["updated_at", "2025-11-11 05:08:52.186358"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Lawyer"], ["firm", "Test Firm"], ["property_id", 980190963], ["created_at", "2025-11-11 05:08:52.191333"], ["updated_at", "2025-11-11 05:08:52.191333"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.6ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Property Doc"], ["content", "Content"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.195063"], ["updated_at", "2025-11-11 05:08:52.195063"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (1.4ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Contractor Doc"], ["content", "Content"], ["document_type", "permit"], ["documentable_type", "Contractor"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.198529"], ["updated_at", "2025-11-11 05:08:52.198529"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (1.6ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Lawyer Doc"], ["content", "Content"], ["document_type", "legal"], ["documentable_type", "Lawyer"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:08:52.202295"], ["updated_at", "2025-11-11 05:08:52.202295"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "contractors";
+DELETE FROM "documents";
+DELETE FROM "lawyers";
+DELETE FROM "properties";
+INSERT INTO "contractors" ("id", "name", "specialty", "property_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 980190962, '2025-11-11 05:09:22.338186', '2025-11-11 05:09:22.338186');
+INSERT INTO "contractors" ("id", "name", "specialty", "property_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 298486374, '2025-11-11 05:09:22.338186', '2025-11-11 05:09:22.338186');
+INSERT INTO "documents" ("id", "title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyText', 'MyString', 'Documentable', 980190962, '2025-11-11 05:09:22.341305', '2025-11-11 05:09:22.341305');
+INSERT INTO "documents" ("id", "title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyText', 'MyString', 'Documentable', 298486374, '2025-11-11 05:09:22.341305', '2025-11-11 05:09:22.341305');
+INSERT INTO "lawyers" ("id", "name", "firm", "property_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 980190962, '2025-11-11 05:09:22.342486', '2025-11-11 05:09:22.342486');
+INSERT INTO "lawyers" ("id", "name", "firm", "property_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 298486374, '2025-11-11 05:09:22.342486', '2025-11-11 05:09:22.342486');
+INSERT INTO "properties" ("id", "name", "address", "description", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyText', '2025-11-11 05:09:22.343573', '2025-11-11 05:09:22.343573');
+INSERT INTO "properties" ("id", "name", "address", "description", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 'MyText', '2025-11-11 05:09:22.343573', '2025-11-11 05:09:22.343573')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_property_through_polymorphic_association
+------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.4ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:09:22.368343"], ["updated_at", "2025-11-11 05:09:22.368343"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.4ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Property Document"], ["content", "Test content"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.413464"], ["updated_at", "2025-11-11 05:09:22.413464"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_contractor_through_polymorphic_association
+--------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:09:22.416450"], ["updated_at", "2025-11-11 05:09:22.416450"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Contractor"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.420830"], ["updated_at", "2025-11-11 05:09:22.420830"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Contractor Document"], ["content", "Test content"], ["document_type", "contract"], ["documentable_type", "Contractor"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.422305"], ["updated_at", "2025-11-11 05:09:22.422305"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------
+DocumentTest: test_polymorphic_association_allows_different_documentable_types
+------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.4ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:09:22.424108"], ["updated_at", "2025-11-11 05:09:22.424108"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Contractor"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.425869"], ["updated_at", "2025-11-11 05:09:22.425869"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.4ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Lawyer"], ["firm", "Test Firm"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.429937"], ["updated_at", "2025-11-11 05:09:22.429937"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Property Doc"], ["content", "Content"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.431378"], ["updated_at", "2025-11-11 05:09:22.431378"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.5ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Contractor Doc"], ["content", "Content"], ["document_type", "permit"], ["documentable_type", "Contractor"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.433222"], ["updated_at", "2025-11-11 05:09:22.433222"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Lawyer Doc"], ["content", "Content"], ["document_type", "legal"], ["documentable_type", "Lawyer"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.434787"], ["updated_at", "2025-11-11 05:09:22.434787"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_lawyer_through_polymorphic_association
+----------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:09:22.436494"], ["updated_at", "2025-11-11 05:09:22.436494"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Lawyer"], ["firm", "Test Firm"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.437850"], ["updated_at", "2025-11-11 05:09:22.437850"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Lawyer Document"], ["content", "Test content"], ["document_type", "legal"], ["documentable_type", "Lawyer"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.439723"], ["updated_at", "2025-11-11 05:09:22.439723"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------------
+PropertyTest: test_should_have_many_documents_through_polymorphic_association
+-----------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.5ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:09:22.441612"], ["updated_at", "2025-11-11 05:09:22.441612"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.4ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 1"], ["content", "Content 1"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.443123"], ["updated_at", "2025-11-11 05:09:22.443123"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 2"], ["content", "Content 2"], ["document_type", "legal"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.444999"], ["updated_at", "2025-11-11 05:09:22.444999"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"]]
+  [1m[36mDocument Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ? AND "documents"."id" = ? LIMIT ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mDocument Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ? AND "documents"."id" = ? LIMIT ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------
+PropertyTest: test_destroying_property_should_destroy_associated_records
+------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.4ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:09:22.448474"], ["updated_at", "2025-11-11 05:09:22.448474"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 1"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.450151"], ["updated_at", "2025-11-11 05:09:22.450151"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.4ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 1"], ["firm", "Firm A"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.452128"], ["updated_at", "2025-11-11 05:09:22.452128"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.4ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 1"], ["content", "Content 1"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:09:22.453851"], ["updated_at", "2025-11-11 05:09:22.453851"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Load (0.3ms)[0m  [1m[34mSELECT "contractors".* FROM "contractors" WHERE "contractors"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Contractor"]]
+  [1m[36mContractor Destroy (0.1ms)[0m  [1m[31mDELETE FROM "contractors" WHERE "contractors"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mLawyer Load (0.1ms)[0m  [1m[34mSELECT "lawyers".* FROM "lawyers" WHERE "lawyers"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mDocument Load (0.5ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Lawyer"]]
+  [1m[36mLawyer Destroy (0.1ms)[0m  [1m[31mDELETE FROM "lawyers" WHERE "lawyers"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"]]
+  [1m[36mDocument Destroy (0.1ms)[0m  [1m[31mDELETE FROM "documents" WHERE "documents"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mProperty Destroy (0.1ms)[0m  [1m[31mDELETE FROM "properties" WHERE "properties"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mContractor Load (0.1ms)[0m  [1m[34mSELECT "contractors".* FROM "contractors" WHERE "contractors"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mLawyer Load (0.1ms)[0m  [1m[34mSELECT "lawyers".* FROM "lawyers" WHERE "lawyers"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+PropertyTest: test_should_have_many_lawyers
+-------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.4ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:09:22.464630"], ["updated_at", "2025-11-11 05:09:22.464630"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 1"], ["firm", "Firm A"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.466095"], ["updated_at", "2025-11-11 05:09:22.466095"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 2"], ["firm", "Firm B"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.467202"], ["updated_at", "2025-11-11 05:09:22.467202"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mLawyer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "lawyers" WHERE "lawyers"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mLawyer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lawyers" WHERE "lawyers"."property_id" = ? AND "lawyers"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mLawyer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lawyers" WHERE "lawyers"."property_id" = ? AND "lawyers"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------
+PropertyTest: test_should_have_many_contractors
+-----------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:09:22.471442"], ["updated_at", "2025-11-11 05:09:22.471442"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 1"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.472804"], ["updated_at", "2025-11-11 05:09:22.472804"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 2"], ["specialty", "Electrical"], ["property_id", 980190963], ["created_at", "2025-11-11 05:09:22.473915"], ["updated_at", "2025-11-11 05:09:22.473915"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mContractor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contractors" WHERE "contractors"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mContractor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "contractors" WHERE "contractors"."property_id" = ? AND "contractors"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mContractor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "contractors" WHERE "contractors"."property_id" = ? AND "contractors"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM "contractors";
+DELETE FROM "documents";
+DELETE FROM "lawyers";
+DELETE FROM "properties";
+INSERT INTO "contractors" ("id", "name", "specialty", "property_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 980190962, '2025-11-11 05:11:05.072653', '2025-11-11 05:11:05.072653');
+INSERT INTO "contractors" ("id", "name", "specialty", "property_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 298486374, '2025-11-11 05:11:05.072653', '2025-11-11 05:11:05.072653');
+INSERT INTO "documents" ("id", "title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyText', 'MyString', 'Documentable', 980190962, '2025-11-11 05:11:05.075259', '2025-11-11 05:11:05.075259');
+INSERT INTO "documents" ("id", "title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyText', 'MyString', 'Documentable', 298486374, '2025-11-11 05:11:05.075259', '2025-11-11 05:11:05.075259');
+INSERT INTO "lawyers" ("id", "name", "firm", "property_id", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 980190962, '2025-11-11 05:11:05.076336', '2025-11-11 05:11:05.076336');
+INSERT INTO "lawyers" ("id", "name", "firm", "property_id", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 298486374, '2025-11-11 05:11:05.076336', '2025-11-11 05:11:05.076336');
+INSERT INTO "properties" ("id", "name", "address", "description", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyText', '2025-11-11 05:11:05.078333', '2025-11-11 05:11:05.078333');
+INSERT INTO "properties" ("id", "name", "address", "description", "created_at", "updated_at") VALUES (298486374, 'MyString', 'MyString', 'MyText', '2025-11-11 05:11:05.078333', '2025-11-11 05:11:05.078333')[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (7.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_key_check[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_lawyer_through_polymorphic_association
+----------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.6ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:11:05.116139"], ["updated_at", "2025-11-11 05:11:05.116139"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.5ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Lawyer"], ["firm", "Test Firm"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.187646"], ["updated_at", "2025-11-11 05:11:05.187646"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.5ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Lawyer Document"], ["content", "Test content"], ["document_type", "legal"], ["documentable_type", "Lawyer"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.214538"], ["updated_at", "2025-11-11 05:11:05.214538"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------
+DocumentTest: test_polymorphic_association_allows_different_documentable_types
+------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (1.2ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:11:05.218443"], ["updated_at", "2025-11-11 05:11:05.218443"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Contractor"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.224921"], ["updated_at", "2025-11-11 05:11:05.224921"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Lawyer"], ["firm", "Test Firm"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.226336"], ["updated_at", "2025-11-11 05:11:05.226336"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.4ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Property Doc"], ["content", "Content"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.229013"], ["updated_at", "2025-11-11 05:11:05.229013"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.2ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Contractor Doc"], ["content", "Content"], ["document_type", "permit"], ["documentable_type", "Contractor"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.230573"], ["updated_at", "2025-11-11 05:11:05.230573"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.2ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Lawyer Doc"], ["content", "Content"], ["document_type", "legal"], ["documentable_type", "Lawyer"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.231746"], ["updated_at", "2025-11-11 05:11:05.231746"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_contractor_through_polymorphic_association
+--------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:11:05.233410"], ["updated_at", "2025-11-11 05:11:05.233410"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Contractor"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.235381"], ["updated_at", "2025-11-11 05:11:05.235381"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Contractor Document"], ["content", "Test content"], ["document_type", "contract"], ["documentable_type", "Contractor"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.236652"], ["updated_at", "2025-11-11 05:11:05.236652"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------------
+DocumentTest: test_document_can_belong_to_a_property_through_polymorphic_association
+------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:11:05.238188"], ["updated_at", "2025-11-11 05:11:05.238188"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.2ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Property Document"], ["content", "Test content"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.239360"], ["updated_at", "2025-11-11 05:11:05.239360"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------
+PropertyTest: test_should_have_many_contractors
+-----------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.8ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:11:05.241204"], ["updated_at", "2025-11-11 05:11:05.241204"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.4ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 1"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.242955"], ["updated_at", "2025-11-11 05:11:05.242955"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.2ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 2"], ["specialty", "Electrical"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.244118"], ["updated_at", "2025-11-11 05:11:05.244118"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mContractor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contractors" WHERE "contractors"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mContractor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "contractors" WHERE "contractors"."property_id" = ? AND "contractors"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mContractor Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "contractors" WHERE "contractors"."property_id" = ? AND "contractors"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------
+PropertyTest: test_should_have_many_lawyers
+-------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.4ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:11:05.247324"], ["updated_at", "2025-11-11 05:11:05.247324"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 1"], ["firm", "Firm A"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.249073"], ["updated_at", "2025-11-11 05:11:05.249073"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.2ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 2"], ["firm", "Firm B"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.250113"], ["updated_at", "2025-11-11 05:11:05.250113"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mLawyer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "lawyers" WHERE "lawyers"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mLawyer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lawyers" WHERE "lawyers"."property_id" = ? AND "lawyers"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mLawyer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lawyers" WHERE "lawyers"."property_id" = ? AND "lawyers"."id" = ? LIMIT ?[0m  [["property_id", 980190963], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------
+PropertyTest: test_destroying_property_should_destroy_associated_records
+------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:11:05.252841"], ["updated_at", "2025-11-11 05:11:05.252841"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Create (0.3ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Contractor 1"], ["specialty", "Plumbing"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.254007"], ["updated_at", "2025-11-11 05:11:05.254007"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLawyer Create (0.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Lawyer 1"], ["firm", "Firm A"], ["property_id", 980190963], ["created_at", "2025-11-11 05:11:05.255466"], ["updated_at", "2025-11-11 05:11:05.255466"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.3ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 1"], ["content", "Content 1"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.256943"], ["updated_at", "2025-11-11 05:11:05.256943"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mContractor Load (0.2ms)[0m  [1m[34mSELECT "contractors".* FROM "contractors" WHERE "contractors"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Contractor"]]
+  [1m[36mContractor Destroy (0.1ms)[0m  [1m[31mDELETE FROM "contractors" WHERE "contractors"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mLawyer Load (0.1ms)[0m  [1m[34mSELECT "lawyers".* FROM "lawyers" WHERE "lawyers"."property_id" = ?[0m  [["property_id", 980190963]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Lawyer"]]
+  [1m[36mLawyer Destroy (0.1ms)[0m  [1m[31mDELETE FROM "lawyers" WHERE "lawyers"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"]]
+  [1m[36mDocument Destroy (0.1ms)[0m  [1m[31mDELETE FROM "documents" WHERE "documents"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mProperty Destroy (0.1ms)[0m  [1m[31mDELETE FROM "properties" WHERE "properties"."id" = ?[0m  [["id", 980190963]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mContractor Load (0.1ms)[0m  [1m[34mSELECT "contractors".* FROM "contractors" WHERE "contractors"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mLawyer Load (0.1ms)[0m  [1m[34mSELECT "lawyers".* FROM "lawyers" WHERE "lawyers"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."id" = ? LIMIT ?[0m  [["id", 980190963], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------------
+PropertyTest: test_should_have_many_documents_through_polymorphic_association
+-----------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProperty Create (0.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Property"], ["address", "123 Test St"], ["description", "Test"], ["created_at", "2025-11-11 05:11:05.267118"], ["updated_at", "2025-11-11 05:11:05.267118"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.2ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 1"], ["content", "Content 1"], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.268343"], ["updated_at", "2025-11-11 05:11:05.268343"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDocument Create (0.2ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Document 2"], ["content", "Content 2"], ["document_type", "legal"], ["documentable_type", "Property"], ["documentable_id", 980190963], ["created_at", "2025-11-11 05:11:05.269373"], ["updated_at", "2025-11-11 05:11:05.269373"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"]]
+  [1m[36mDocument Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ? AND "documents"."id" = ? LIMIT ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"], ["id", 980190963], ["LIMIT", 1]]
+  [1m[36mDocument Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ? AND "documents"."id" = ? LIMIT ?[0m  [["documentable_id", 980190963], ["documentable_type", "Property"], ["id", 980190964], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------
+PropertiesControllerTest: test_should_get_index
+-----------------------------------------------
+Started GET "/properties/index" for 127.0.0.1 at 2025-11-11 05:11:05 +0000
+Processing by PropertiesController#index as HTML
+  [1m[36mProperty Load (0.3ms)[0m  [1m[34mSELECT "properties".* FROM "properties" ORDER BY "properties"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mContractor Load (0.2ms)[0m  [1m[34mSELECT "contractors".* FROM "contractors" WHERE "contractors"."property_id" = ?[0m  [["property_id", 298486374]]
+  [1m[36mLawyer Load (0.2ms)[0m  [1m[34mSELECT "lawyers".* FROM "lawyers" WHERE "lawyers"."property_id" = ?[0m  [["property_id", 298486374]]
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_type" = ? AND "documents"."documentable_id" = ?[0m  [["documentable_type", "Property"], ["documentable_id", 298486374]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 298486374], ["documentable_type", "Contractor"]]
+  [1m[36mDocument Load (0.1ms)[0m  [1m[34mSELECT "documents".* FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 298486374], ["documentable_type", "Lawyer"]]
+  Rendering layout layouts/application.html.erb
+  Rendering properties/index.html.erb within layouts/application
+  [1m[36mContractor Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "contractors" WHERE "contractors"."property_id" = ?[0m  [["property_id", 298486374]]
+  [1m[36mLawyer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "lawyers" WHERE "lawyers"."property_id" = ?[0m  [["property_id", 298486374]]
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 298486374], ["documentable_type", "Property"]]
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 298486374], ["documentable_type", "Contractor"]]
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents" WHERE "documents"."documentable_id" = ? AND "documents"."documentable_type" = ?[0m  [["documentable_id", 298486374], ["documentable_type", "Lawyer"]]
+  Rendered properties/index.html.erb within layouts/application (Duration: 6.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 660.8ms | GC: 150.0ms)
+Completed 200 OK in 917ms (Views: 685.4ms | ActiveRecord: 1.7ms (11 queries, 0 cached) | GC: 160.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m

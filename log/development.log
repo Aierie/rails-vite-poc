@@ -1,0 +1,112 @@
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-11-11 05:07:07.363465', '2025-11-11 05:07:07.363468') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateProperties (20251111050533)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "properties" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "address" varchar, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251111050533') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateContractors (20251111050548)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "contractors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "specialty" varchar, "property_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ec11b5edfa"
+FOREIGN KEY ("property_id")
+  REFERENCES "properties" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_contractors_on_property_id" ON "contractors" ("property_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251111050548') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateLawyers (20251111050603)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "lawyers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "firm" varchar, "property_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_e15102033f"
+FOREIGN KEY ("property_id")
+  REFERENCES "properties" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_lawyers_on_property_id" ON "lawyers" ("property_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251111050603') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateDocuments (20251111050617)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "documents" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "content" text, "document_type" varchar, "documentable_type" varchar NOT NULL, "documentable_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_documents_on_documentable" ON "documents" ("documentable_type", "documentable_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251111050617') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mDocument Load (0.3ms)[0m  [1m[34mSELECT "documents".* FROM "documents"[0m
+  [1m[36mContractor Load (0.3ms)[0m  [1m[34mSELECT "contractors".* FROM "contractors"[0m
+  [1m[36mLawyer Load (0.2ms)[0m  [1m[34mSELECT "lawyers".* FROM "lawyers"[0m
+  [1m[36mProperty Load (0.2ms)[0m  [1m[34mSELECT "properties".* FROM "properties"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProperty Create (1.8ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Sunset Plaza"], ["address", "123 Main Street, Los Angeles, CA 90001"], ["description", "A beautiful commercial property located in the heart of downtown. Features modern amenities and excellent location."], ["created_at", "2025-11-11 05:07:53.042827"], ["updated_at", "2025-11-11 05:07:53.042827"]]
+  [1m[36mTRANSACTION (5.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContractor Create (1.4ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "John's Construction Co"], ["specialty", "General Contracting"], ["property_id", 1], ["created_at", "2025-11-11 05:07:53.128358"], ["updated_at", "2025-11-11 05:07:53.128358"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContractor Create (3.0ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Elite Plumbing Services"], ["specialty", "Plumbing"], ["property_id", 1], ["created_at", "2025-11-11 05:07:53.133167"], ["updated_at", "2025-11-11 05:07:53.133167"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContractor Create (2.5ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Bright Electrical Works"], ["specialty", "Electrical"], ["property_id", 1], ["created_at", "2025-11-11 05:07:53.138793"], ["updated_at", "2025-11-11 05:07:53.138793"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLawyer Create (2.5ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Sarah Johnson"], ["firm", "Johnson & Associates LLP"], ["property_id", 1], ["created_at", "2025-11-11 05:07:53.147855"], ["updated_at", "2025-11-11 05:07:53.147855"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLawyer Create (2.0ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Michael Chen"], ["firm", "Chen Legal Group"], ["property_id", 1], ["created_at", "2025-11-11 05:07:53.153795"], ["updated_at", "2025-11-11 05:07:53.153795"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDocument Create (1.2ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Purchase Agreement"], ["content", "This agreement outlines the terms of purchase for Sunset Plaza..."], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 1], ["created_at", "2025-11-11 05:07:53.172439"], ["updated_at", "2025-11-11 05:07:53.172439"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDocument Create (1.1ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Property Deed"], ["content", "Official deed for the property located at 123 Main Street..."], ["document_type", "legal"], ["documentable_type", "Property"], ["documentable_id", 1], ["created_at", "2025-11-11 05:07:53.176199"], ["updated_at", "2025-11-11 05:07:53.176199"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDocument Create (1.2ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Inspection Report"], ["content", "Full property inspection conducted on January 15, 2024..."], ["document_type", "report"], ["documentable_type", "Property"], ["documentable_id", 1], ["created_at", "2025-11-11 05:07:53.179561"], ["updated_at", "2025-11-11 05:07:53.179561"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDocument Create (1.1ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Construction Contract"], ["content", "Contract between Sunset Plaza and John's Construction Co..."], ["document_type", "contract"], ["documentable_type", "Contractor"], ["documentable_id", 1], ["created_at", "2025-11-11 05:07:53.197615"], ["updated_at", "2025-11-11 05:07:53.197615"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDocument Create (1.1ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Building Permit"], ["content", "Permit #12345 issued for renovation work..."], ["document_type", "permit"], ["documentable_type", "Contractor"], ["documentable_id", 1], ["created_at", "2025-11-11 05:07:53.200797"], ["updated_at", "2025-11-11 05:07:53.200797"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDocument Create (1.4ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Legal Opinion Letter"], ["content", "Legal opinion regarding zoning compliance for Sunset Plaza..."], ["document_type", "legal"], ["documentable_type", "Lawyer"], ["documentable_id", 1], ["created_at", "2025-11-11 05:07:53.205357"], ["updated_at", "2025-11-11 05:07:53.205357"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProperty Create (1.3ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Riverside Apartments"], ["address", "456 River Road, San Francisco, CA 94102"], ["description", "Luxury residential complex with waterfront views. 50 units total with premium finishes."], ["created_at", "2025-11-11 05:07:53.209190"], ["updated_at", "2025-11-11 05:07:53.209190"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContractor Create (1.1ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Bay Area HVAC Solutions"], ["specialty", "HVAC"], ["property_id", 2], ["created_at", "2025-11-11 05:07:53.213214"], ["updated_at", "2025-11-11 05:07:53.213214"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLawyer Create (1.3ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Emily Rodriguez"], ["firm", "Rodriguez & Partners"], ["property_id", 2], ["created_at", "2025-11-11 05:07:53.218284"], ["updated_at", "2025-11-11 05:07:53.218284"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDocument Create (1.0ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Lease Agreement Template"], ["content", "Standard lease agreement for Riverside Apartments units..."], ["document_type", "contract"], ["documentable_type", "Property"], ["documentable_id", 2], ["created_at", "2025-11-11 05:07:53.221870"], ["updated_at", "2025-11-11 05:07:53.221870"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProperty Create (1.0ms)[0m  [1m[32mINSERT INTO "properties" ("name", "address", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Tech Hub Office Park"], ["address", "789 Innovation Drive, Austin, TX 78701"], ["description", "Modern office space designed for tech companies. Features high-speed internet and flexible layouts."], ["created_at", "2025-11-11 05:07:53.224803"], ["updated_at", "2025-11-11 05:07:53.224803"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContractor Create (1.1ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Network Infrastructure Inc"], ["specialty", "IT Infrastructure"], ["property_id", 3], ["created_at", "2025-11-11 05:07:53.228052"], ["updated_at", "2025-11-11 05:07:53.228052"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContractor Create (1.2ms)[0m  [1m[32mINSERT INTO "contractors" ("name", "specialty", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Modern Interiors"], ["specialty", "Interior Design"], ["property_id", 3], ["created_at", "2025-11-11 05:07:53.241324"], ["updated_at", "2025-11-11 05:07:53.241324"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mLawyer Create (1.2ms)[0m  [1m[32mINSERT INTO "lawyers" ("name", "firm", "property_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "David Martinez"], ["firm", "Tech Law Advisors"], ["property_id", 3], ["created_at", "2025-11-11 05:07:53.245795"], ["updated_at", "2025-11-11 05:07:53.245795"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDocument Create (2.5ms)[0m  [1m[32mINSERT INTO "documents" ("title", "content", "document_type", "documentable_type", "documentable_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Tenant Handbook"], ["content", "Complete guide for tenants of Tech Hub Office Park..."], ["document_type", "guide"], ["documentable_type", "Property"], ["documentable_id", 3], ["created_at", "2025-11-11 05:07:53.249791"], ["updated_at", "2025-11-11 05:07:53.249791"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProperty Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties"[0m
+  [1m[36mContractor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contractors"[0m
+  [1m[36mLawyer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "lawyers"[0m
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents"[0m
+  [1m[36mProperty Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "properties"[0m
+  [1m[36mContractor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contractors"[0m
+  [1m[36mLawyer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "lawyers"[0m
+  [1m[36mDocument Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "documents"[0m
+  [1m[36mProperty Load (0.1ms)[0m  [1m[34mSELECT "properties".* FROM "properties" ORDER BY "properties"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
